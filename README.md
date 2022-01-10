@@ -33,6 +33,13 @@
 
 ## Endpoints:
 
+### helpers
+
+  - POST /helpers
+    - Create helper.
+  - GET /helpers/{userType}
+    - Get helper by user type
+
 ### memberships
 
   - POST /memberships
@@ -50,13 +57,6 @@
     - Get membership
   - PATCH /schools/{id}
     - Update membership
-
-### helpers
-
-- POST /helpers
-  - Create helper.
-- GET /helpers/{userType}
-  - Get helper by user type
 
 ## Diagrama NoSQL
 
