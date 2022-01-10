@@ -33,9 +33,6 @@
 
 ## Endpoints:
 
-  - BaseUrl
-      - services-api.eduqy.me
-
 ### [helpers](src/helpers/swagger.yaml)
 
   - POST /helpers
