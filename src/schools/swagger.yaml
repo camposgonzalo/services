@@ -1,0 +1,147 @@
+openapi: 3.0.3
+info:
+  title: Schools Api
+  description: Api to manage schools
+  version: 1.0.0
+
+servers:
+  - url: "https://services-api.eduqy.me"
+    description: Production Server
+
+tags:
+  - name: Schools
+    description: Endpoints to manage schools
+ 
+paths:
+  /schools:
+    post:
+      summary: Create School
+      description: This endpoint allows to create a school
+      operationId: CreateSchool
+      tags:
+        - Schools
+      requestBody:
+        description: Create school object
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - membershipId
+              properties:
+                name:
+                  description: school name
+                  type: string
+                membershipId:
+                  description: school membership id
+                  type: string
+      responses:
+        200:
+          description: School created object
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - id
+                  - name
+                  - membershipId
+                properties:
+                  id:
+                    description: school id
+                    type: string
+                  name:
+                    description: school name
+                    type: string
+                  membershipId:
+                    description: school membership id
+                    type: string
+
+  /schools/{id}:
+    get:
+      summary: Get School
+      description: This endpoint allows to get a school
+      operationId: GetSchool
+      tags:
+        - Schools
+      parameters:
+        - name: id
+          required: true
+          in: path
+          description: School Id
+          schema:
+            type: string
+      responses:
+        200:
+          description: School object.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - id
+                  - name
+                  - membershipId
+                properties:
+                  id:
+                    description: school id
+                    type: string
+                  name:
+                    description: school name
+                    type: string
+                  membershipId:
+                    description: school membership id
+                    type: string
+    patch:
+      summary: Patch School
+      description: This endpoint allows to update a school
+      operationId: PatchSchool
+      tags:
+        - Schools
+      parameters:
+        - name: id
+          required: true
+          in: path
+          description: School Id
+          schema:
+            type: string
+      requestBody:
+        description: School update object
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - membershipId
+              properties:
+                name:
+                  description: membership name
+                  type: string
+                membershipId:
+                  description: school membership id
+                  type: string
+      responses:
+        200:
+          description: Updated school object
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - id
+                  - name
+                  - membershipId
+                properties:
+                  id:
+                    description: school id
+                    type: string
+                  name:
+                    description: school name
+                    type: string
+                  membershipId:
+                    description: school membership id
+                    type: string

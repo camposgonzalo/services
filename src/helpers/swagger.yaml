@@ -1,0 +1,138 @@
+openapi: 3.0.3
+info:
+  title: Helpers Api
+  description: Api to manage helpers
+  version: 1.0.0
+
+servers:
+  - url: "https://services-api.eduqy.me"
+    description: Production Server
+
+tags:
+  - name: Helpers
+    description: Endpoints to manage helpers
+ 
+paths:
+  /helpers:
+    post:
+      summary: Create Helper
+      description: This endpoint allows to create a helper
+      operationId: CreateHelper
+      tags:
+        - Helpers
+      requestBody:
+        description: Create helper object
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - userType
+                - url
+                - description
+                - icon
+                - color
+              properties:
+                userType:
+                  description: helper user
+                  type: string
+                  enum:
+                    - admin
+                    - teacher
+                    - student
+                url:
+                  description: helper url
+                  type: string
+                description:
+                  description: helper description
+                  type: string
+                icon:
+                  description: helper icon
+                  type: string
+                color:
+                  description: helper icon color
+                  type: string
+      responses:
+        200:
+          description: School created object
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - userType
+                  - url
+                  - description
+                  - icon
+                  - color
+                properties:
+                  userType:
+                    description: helper user
+                    type: string
+                    enum:
+                      - admin
+                      - teacher
+                      - student
+                  url:
+                    description: helper url
+                    type: string
+                  description:
+                    description: helper description
+                    type: string
+                  icon:
+                    description: helper icon
+                    type: string
+                  color:
+                    description: helper icon color
+                    type: string
+
+  /helpers/{userType}:
+    get:
+      summary: Get Helper
+      description: This endpoint allows to get helpers by user type
+      operationId: GetHelper
+      tags:
+        - Helpers
+      parameters:
+        - name: userType
+          required: true
+          in: path
+          description: Helper user type
+          schema:
+            type: string
+      responses:
+        200:
+          description: Array of helpers object.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  required:
+                    - userType
+                    - url
+                    - description
+                    - icon
+                    - color
+                  properties:
+                    userType:
+                      description: helper user
+                      type: string
+                      enum:
+                        - admin
+                        - teacher
+                        - student
+                    url:
+                      description: helper url
+                      type: string
+                    description:
+                      description: helper description
+                      type: string
+                    icon:
+                      description: helper icon
+                      type: string
+                    color:
+                      description: helper icon color
+                      type: string

@@ -1,0 +1,277 @@
+openapi: 3.0.3
+info:
+  title: Memberships Api
+  description: Api to manage memberships
+  version: 1.0.0
+
+servers:
+  - url: "https://services-api.eduqy.me"
+    description: Production Server
+
+tags:
+  - name: Memberships
+    description: Endpoints to manage memberships
+ 
+paths:
+  /memberships:
+    post:
+      summary: Create Membership
+      description: This endpoint allows to create a membership
+      operationId: CreateMembership
+      tags:
+        - Memberships
+      requestBody:
+        description: Create membership object
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - price
+                - features
+              properties:
+                name:
+                  description: membership name
+                  type: string
+                description:
+                  description: membership description
+                  type: string
+                price:
+                  description: membership price
+                  type: number
+                features:
+                  description: membership features
+                  type: object
+                  required:
+                    - admin
+                    - teacher
+                    - student
+                  properties:
+                    admin:
+                      description: admin features
+                      type: array
+                      items:
+                        type: string
+                    teacher:
+                      description: teacher features
+                      type: array
+                      items:
+                        type: string
+                    student:
+                      description: student features
+                      type: array
+                      items:
+                        type: string
+      responses:
+        200:
+          description: Membership created object
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - id
+                  - name
+                  - price
+                  - features
+                properties:
+                  id:
+                    description: membership id
+                    type: string
+                  name:
+                    description: membership name
+                    type: string
+                  description:
+                    description: membership description
+                    type: string
+                  price:
+                    description: membership price
+                    type: number
+                  features:
+                    description: membership features
+                    type: object
+                    required:
+                      - admin
+                      - teacher
+                      - student
+                    properties:
+                      admin:
+                        description: admin features
+                        type: array
+                        items:
+                          type: string
+                      teacher:
+                        description: teacher features
+                        type: array
+                        items:
+                          type: string
+                      student:
+                        description: student features
+                        type: array
+                        items:
+                          type: string
+    get:
+      summary: Get Memberships
+      description: This endpoint allows to get all memberships
+      operationId: GetMemberships
+      tags:
+        - Memberships
+      responses:
+        200:
+          description: Array of memberships objects.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  required:
+                    - id
+                    - name
+                    - price
+                    - features
+                  properties:
+                    id:
+                      description: membership id
+                      type: string
+                    name:
+                      description: membership name
+                      type: string
+                    description:
+                      description: membership description
+                      type: string
+                    price:
+                      description: membership price
+                      type: number
+                    features:
+                      description: membership features
+                      type: object
+                      required:
+                        - admin
+                        - teacher
+                        - student
+                      properties:
+                        admin:
+                          description: admin features
+                          type: array
+                          items:
+                            type: string
+                        teacher:
+                          description: teacher features
+                          type: array
+                          items:
+                            type: string
+                        student:
+                          description: student features
+                          type: array
+                          items:
+                            type: string
+
+  /memberships/{id}:
+    patch:
+      summary: Patch Membership
+      description: This endpoint allows to update a membership
+      operationId: PatchMembership
+      tags:
+        - Memberships
+      parameters:
+        - name: id
+          required: true
+          in: path
+          description: Membership Id
+          schema:
+            type: string
+      requestBody:
+        description: Membership update object
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - price
+                - features
+              properties:
+                name:
+                  description: membership name
+                  type: string
+                description:
+                  description: membership description
+                  type: string
+                price:
+                  description: membership price
+                  type: number
+                features:
+                  description: membership features
+                  type: object
+                  required:
+                    - admin
+                    - teacher
+                    - student
+                  properties:
+                    admin:
+                      description: admin features
+                      type: array
+                      items:
+                        type: string
+                    teacher:
+                      description: teacher features
+                      type: array
+                      items:
+                        type: string
+                    student:
+                      description: student features
+                      type: array
+                      items:
+                        type: string
+      responses:
+        200:
+          description: Updated membership object
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - id
+                  - name
+                  - price
+                  - features
+                properties:
+                  id:
+                    description: membership id
+                    type: string
+                  name:
+                    description: membership name
+                    type: string
+                  description:
+                    description: membership description
+                    type: string
+                  price:
+                    description: membership price
+                    type: number
+                  features:
+                    description: membership features
+                    type: object
+                    required:
+                      - admin
+                      - teacher
+                      - student
+                    properties:
+                      admin:
+                        description: admin features
+                        type: array
+                        items:
+                          type: string
+                      teacher:
+                        description: teacher features
+                        type: array
+                        items:
+                          type: string
+                      student:
+                        description: student features
+                        type: array
+                        items:
+                          type: string
