@@ -1,6 +1,6 @@
-# Apis de eduqy
+# Eduqy apis
 
-## Estructura de directorios donde estas los diferentes servicios:
+## Directory structure
 
 ### src
 
@@ -61,6 +61,6 @@
   - PATCH /schools/{id}
     - Update membership
 
-## Diagrama NoSQL
+## NoSQL Diagram
 
 ![Screenshot](DER.jpg)
