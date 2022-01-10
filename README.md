@@ -33,6 +33,9 @@
 
 ## Endpoints:
 
+  - BaseUrl
+      - services-api.eduqy.me
+
 ### helpers
 
   - POST /helpers
