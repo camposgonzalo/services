@@ -36,14 +36,14 @@
   - BaseUrl
       - services-api.eduqy.me
 
-### helpers
+### [helpers](src/helpers/swagger.yaml)
 
   - POST /helpers
     - Create helper.
   - GET /helpers/{userType}
     - Get helper by user type
 
-### memberships
+### [memberships](src/memberships/swagger.yaml)
 
   - POST /memberships
     - Create membership.
@@ -52,7 +52,7 @@
   - PATCH /memberships/{id}
     - Update membership
 
-### schools
+### [schools](src/schools/swagger.yaml)
 
   - POST /schools
     - Create school.
