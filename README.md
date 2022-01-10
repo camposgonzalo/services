@@ -1,23 +1,35 @@
 # Apis de eduqy
 
-## Estructura de directorios:
+## Estructura de directorios donde estas los diferentes servicios:
 
 ### src
 
-- general
-  - common
-    - Schemas: Esquemas de validación json
-    - Utils: otros módulos compartidos
-- memberships
-  - common
-    - Models: Entidades y queries
-    - Schemas: Esquemas de validación json
-  - functions: Funciones lambdas
-- schools
-  - common
-    - Models: Entidades y queries
-    - Schemas: Esquemas de validación json
-  - functions: Funciones lambdas
+#### general
+
+- common
+  - Schemas: Esquemas de validación json
+  - Utils: otros módulos compartidos
+
+#### memberships
+
+- common
+  - Models: Entidades y queries
+  - Schemas: Esquemas de validación json
+- functions: Funciones lambdas
+
+#### schools
+
+- common
+  - Models: Entidades y queries
+  - Schemas: Esquemas de validación json
+- functions: Funciones lambdas
+
+#### helpers
+
+- common
+  - Models: Entidades y queries
+  - Schemas: Esquemas de validación json
+- functions: Funciones lambdas
 
 ## Endpoints:
 
