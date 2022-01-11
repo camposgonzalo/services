@@ -1,0 +1,40 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      nodejs: '12.x'
+  pre_build:
+    commands:
+      - npm i -s
+  build:
+    commands:
+      - npm run -s build
+      - cd src
+      - cd general
+      - npm i -s
+      - npm run build
+      - mkdir -p node-modules-layer/nodejs
+      - mv node_modules node-modules-layer/nodejs/
+      - mkdir -p common-layer/nodejs
+      - mv dist/* common-layer/nodejs/
+      - cd ..     
+      - cd helpers
+      - npm run build
+      - mkdir -p common-layer/nodejs
+      - mv dist/helpers/common/* common-layer/nodejs/
+      - cd ..
+      - cd memberships
+      - npm run build
+      - mkdir -p common-layer/nodejs
+      - mv dist/memberships/common/* common-layer/nodejs/
+      - cd ..
+      - cd schools
+      - npm run build
+      - mkdir -p common-layer/nodejs
+      - mv dist/schools/common/* common-layer/nodejs/
+      - npx cdk synth --verbose
+  post_build:
+    commands:
+      - bash -c 'if [ "$CODEBUILD_BUILD_SUCCEEDING" == "0" ]; then exit 1; fi'
+      - npx cdk bootstrap aws://"$AWS_ACCOUNT_ID"/"$AWS_REGION"
+      - npx cdk deploy --require-approval never "*"
