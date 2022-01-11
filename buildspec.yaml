@@ -39,5 +39,5 @@ phases:
   post_build:
     commands:
       - bash -c 'if [ "$CODEBUILD_BUILD_SUCCEEDING" == "0" ]; then exit 1; fi'
-      - npx cdk bootstrap aws://"$AWS_ACCOUNT_ID"/"$AWS_REGION"
+      # - npx cdk bootstrap aws://"$AWS_ACCOUNT_ID"/"$AWS_REGION"
       - npx cdk deploy --require-approval never "*"
