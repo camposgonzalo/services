@@ -19,16 +19,19 @@ phases:
       - mv dist/* common-layer/nodejs/
       - cd ..     
       - cd helpers
+      - npm i -s
       - npm run build
       - mkdir -p common-layer/nodejs
       - mv dist/helpers/common/* common-layer/nodejs/
       - cd ..
       - cd memberships
+      - npm i -s
       - npm run build
       - mkdir -p common-layer/nodejs
       - mv dist/memberships/common/* common-layer/nodejs/
       - cd ..
       - cd schools
+      - npm i -s
       - npm run build
       - mkdir -p common-layer/nodejs
       - mv dist/schools/common/* common-layer/nodejs/
