@@ -35,6 +35,8 @@ phases:
       - npm run build
       - mkdir -p common-layer/nodejs
       - mv dist/schools/common/* common-layer/nodejs/
+      - cd ..
+      - cd ..
       - npx cdk synth --verbose
   post_build:
     commands:
