@@ -4,6 +4,7 @@ import * as apiGw from "@aws-cdk/aws-apigateway";
 import * as certificatemanager from "@aws-cdk/aws-certificatemanager";
 import * as Util from "../../util";
 import { HelperBackendStackProps } from "../../interfaces";
+import { ApiKey } from "@aws-cdk/aws-apigateway";
 
 export class HelperBackendStack extends cdk.Stack {
   public readonly functions: { [key: string]: lambda.Function } = {};
@@ -109,7 +110,10 @@ export class HelperBackendStack extends cdk.Stack {
 
       this.paths[functionDef.path].addMethod(
         functionDef.mehtod,
-        new apiGw.LambdaIntegration(functionObj)
+        new apiGw.LambdaIntegration(functionObj),
+        {
+          apiKeyRequired: true,
+        }
       );
     }
   }

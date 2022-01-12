@@ -46,6 +46,20 @@ export class GeneralStack extends cdk.Stack {
       endpointExportName: Util.getResourceNameWithPrefix(`services-api`),
     });
 
+    const servicesApiKey = servicesApi.addApiKey("ServicesApiKey", {
+      apiKeyName: Util.getResourceNameWithPrefix("services-api-key"),
+    });
+
+    const servicesApiUsagePlan = servicesApi.addUsagePlan(
+      "ServicesApiUsagePlan",
+      {
+        name: Util.getResourceNameWithPrefix("services-api-usage-plan"),
+        apiStages: [{ api: servicesApi, stage: servicesApi.deploymentStage }],
+      }
+    );
+
+    servicesApiUsagePlan.addApiKey(servicesApiKey);
+
     servicesApi.addDomainName("DomainName", {
       certificate: certificate,
       domainName: "services-api.eduqy.me",

@@ -118,7 +118,10 @@ export class SchoolBackendStack extends cdk.Stack {
 
       this.paths[functionDef.path].addMethod(
         functionDef.mehtod,
-        new apiGw.LambdaIntegration(functionObj)
+        new apiGw.LambdaIntegration(functionObj),
+        {
+          apiKeyRequired: true,
+        }
       );
     }
   }
