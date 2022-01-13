@@ -83,6 +83,11 @@ export class SchoolBackendStack extends cdk.Stack {
         path: "{id}",
       },
       {
+        id: "GetSchools",
+        mehtod: "GET",
+        path: "",
+      },
+      {
         id: "UpdateSchool",
         mehtod: "PATCH",
         path: "{id}",

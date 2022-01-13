@@ -58,6 +58,35 @@ paths:
                   membershipId:
                     description: school membership id
                     type: string
+    get:
+      summary: Get Schools
+      description: This endpoint allows to get all schools
+      operationId: GetSchools
+      tags:
+        - Schools
+      responses:
+        200:
+          description: Schools array.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  required:
+                    - id
+                    - name
+                    - membershipId
+                  properties:
+                    id:
+                      description: school id
+                      type: string
+                    name:
+                      description: school name
+                      type: string
+                    membershipId:
+                      description: school membership id
+                      type: string
 
   /schools/{id}:
     get:

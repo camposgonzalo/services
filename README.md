@@ -53,6 +53,8 @@
 
   - POST /schools
     - Create school.
+  - GET /schools
+    - Get schools.
   - GET /schools/{id}
     - Get membership
   - PATCH /schools/{id}

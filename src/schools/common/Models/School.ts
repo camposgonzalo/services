@@ -61,4 +61,18 @@ export class School {
 
     return school;
   }
+
+  static async getAll() {
+    let schools = [];
+
+    const data = await DynamoDbClient.scan({
+      TableName: School.tableName,
+    });
+
+    if (data && data.Items) {
+      schools = data.Items.map((item: any) => new School(item));
+    }
+
+    return schools;
+  }
 }
