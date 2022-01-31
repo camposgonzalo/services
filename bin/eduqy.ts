@@ -39,7 +39,6 @@ new MembershipBackendStack(app, "MembershipBackendStack", {
   env: env,
   name: Util.getBackendStackNameWithPrefix("membership"),
   infra: membershipsInfraStack,
-  general: generalStack,
 });
 
 const schoolInfraStack = new SchoolInfraStack(app, "SchoolInfraStack", {
@@ -51,7 +50,6 @@ new SchoolBackendStack(app, "SchoolBackendStack", {
   env: env,
   name: Util.getBackendStackNameWithPrefix("school"),
   infra: schoolInfraStack,
-  general: generalStack,
 });
 
 const helperInfraStack = new HelperInfraStack(app, "HelperInfraStack", {
@@ -63,5 +61,4 @@ new HelperBackendStack(app, "HelperBackendStack", {
   env: env,
   name: Util.getBackendStackNameWithPrefix("helper"),
   infra: helperInfraStack,
-  general: generalStack,
 });

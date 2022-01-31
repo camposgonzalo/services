@@ -6,7 +6,7 @@ import { JsonValidator } from "/opt/nodejs/general/Utils/JsonValidator";
 
 exports.main = async function (event: any) {
   const body = JSON.parse(event.body);
-  const { id } = event.pathParameters;
+  const { name } = event.pathParameters;
 
   const validateResult = JsonValidator.validate(body, Schema);
 
@@ -19,7 +19,7 @@ exports.main = async function (event: any) {
     };
   }
 
-  let school = await School.getById(id);
+  let school = await School.getByName(name);
 
   if (!school)
     return {

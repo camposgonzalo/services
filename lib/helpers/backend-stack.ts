@@ -8,7 +8,7 @@ import { ApiKey } from "@aws-cdk/aws-apigateway";
 
 export class HelperBackendStack extends cdk.Stack {
   public readonly functions: { [key: string]: lambda.Function } = {};
-  public readonly layers: Array<lambda.LayerVersion> = [];
+  public readonly layers: Array<lambda.ILayerVersion> = [];
   public readonly paths: { [key: string]: apiGw.Resource } = {};
 
   constructor(
@@ -18,7 +18,6 @@ export class HelperBackendStack extends cdk.Stack {
   ) {
     super(scope, id, Util.getCdkPropsFromCustomProps(props));
 
-    const general = props.general;
     const restApiId = cdk.Fn.importValue(
       Util.getResourceNameWithPrefix(`services-api-id`)
     );
@@ -29,21 +28,6 @@ export class HelperBackendStack extends cdk.Stack {
       restApiId,
       rootResourceId,
     });
-
-    // const certificate = certificatemanager.Certificate.fromCertificateArn(
-    //   this,
-    //   "Certificate",
-    //   Util.getCertificateArn()
-    // );
-
-    // const api = new apiGw.RestApi(this, "HelperApi", {
-    //   restApiName: Util.getResourceNameWithPrefix(`helper-api`),
-    // });
-
-    // api.addDomainName("DomainName", {
-    //   certificate: certificate,
-    //   domainName: "helpers-api.eduqy.me",
-    // });
 
     const apiRoot = api.root.addResource("helpers");
 
@@ -66,7 +50,22 @@ export class HelperBackendStack extends cdk.Stack {
       this.layers.push(layerObj);
     }
 
-    this.layers = this.layers.concat(general.layers);
+    const generalLayer = lambda.LayerVersion.fromLayerVersionArn(
+      this,
+      "GeneralLayerArn",
+      cdk.Fn.importValue(Util.getResourceNameWithPrefix(`General-layer-arn`))
+    );
+
+    const generalModulesLayer = lambda.LayerVersion.fromLayerVersionArn(
+      this,
+      "GeneralModulesLayerArn",
+      cdk.Fn.importValue(
+        Util.getResourceNameWithPrefix(`GeneralModules-layer-arn`)
+      )
+    );
+
+    this.layers.push(generalLayer);
+    this.layers.push(generalModulesLayer);
 
     const functions = [
       {
@@ -97,8 +96,6 @@ export class HelperBackendStack extends cdk.Stack {
           HELPER_TABLE_NAME: props.infra.table.tableName,
         },
       });
-
-      // this.functions[functionDef.id] = functionObj;
 
       if (!(functionDef.path in this.paths)) {
         if (functionDef.path) {

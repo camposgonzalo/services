@@ -7,7 +7,7 @@ import { MembershipBackendStackProps } from "../../interfaces";
 
 export class MembershipBackendStack extends cdk.Stack {
   public readonly functions: { [key: string]: lambda.Function };
-  public readonly layers: Array<lambda.LayerVersion> = [];
+  public readonly layers: Array<lambda.ILayerVersion> = [];
   public readonly paths: { [key: string]: apiGw.Resource } = {};
 
   constructor(
@@ -17,7 +17,6 @@ export class MembershipBackendStack extends cdk.Stack {
   ) {
     super(scope, id, Util.getCdkPropsFromCustomProps(props));
 
-    const general = props.general;
     const restApiId = cdk.Fn.importValue(
       Util.getResourceNameWithPrefix(`services-api-id`)
     );
@@ -28,21 +27,6 @@ export class MembershipBackendStack extends cdk.Stack {
       restApiId,
       rootResourceId,
     });
-
-    // const certificate = certificatemanager.Certificate.fromCertificateArn(
-    //   this,
-    //   "Certificate",
-    //   Util.getCertificateArn()
-    // );
-
-    // const api = new apiGw.RestApi(this, "MembershipApi", {
-    //   restApiName: Util.getResourceNameWithPrefix(`membership-api`),
-    // });
-
-    // api.addDomainName("DomainName", {
-    //   certificate: certificate,
-    //   domainName: "memberships-api.eduqy.me",
-    // });
 
     const apiRoot = api.root.addResource("memberships");
 
@@ -69,7 +53,22 @@ export class MembershipBackendStack extends cdk.Stack {
       this.layers.push(layerObj);
     }
 
-    this.layers = this.layers.concat(general.layers);
+    const generalLayer = lambda.LayerVersion.fromLayerVersionArn(
+      this,
+      "GeneralLayerArn",
+      cdk.Fn.importValue(Util.getResourceNameWithPrefix(`General-layer-arn`))
+    );
+
+    const generalModulesLayer = lambda.LayerVersion.fromLayerVersionArn(
+      this,
+      "GeneralModulesLayerArn",
+      cdk.Fn.importValue(
+        Util.getResourceNameWithPrefix(`GeneralModules-layer-arn`)
+      )
+    );
+
+    this.layers.push(generalLayer);
+    this.layers.push(generalModulesLayer);
 
     const functions = [
       {
@@ -105,8 +104,6 @@ export class MembershipBackendStack extends cdk.Stack {
           MEMBERSHIP_TABLE_NAME: props.infra.table.tableName,
         },
       });
-
-      // this.functions[functionDef.id] = functionObj;
 
       if (!(functionDef.path in this.paths)) {
         if (functionDef.path) {

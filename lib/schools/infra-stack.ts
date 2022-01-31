@@ -13,7 +13,7 @@ export class SchoolInfraStack extends cdk.Stack {
 
     this.table = new dynamodb.Table(this, "SchoolTable", {
       tableName: Util.getResourceNameWithPrefix("schools-table"),
-      partitionKey: { name: "id", type: dynamodb.AttributeType.STRING },
+      partitionKey: { name: "name", type: dynamodb.AttributeType.STRING },
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
     });
 

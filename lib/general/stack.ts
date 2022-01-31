@@ -6,9 +6,6 @@ import * as Util from "../../util";
 import { GeneralStackProps } from "../../interfaces";
 
 export class GeneralStack extends cdk.Stack {
-  public readonly layers: Array<lambda.LayerVersion> = [];
-  // public readonly servicesApi: apiGw.RestApi;
-
   constructor(scope: cdk.Construct, id: string, props: GeneralStackProps) {
     super(scope, id, Util.getCdkPropsFromCustomProps(props));
 
@@ -32,7 +29,10 @@ export class GeneralStack extends cdk.Stack {
         license: "Apache-2.0",
       });
 
-      this.layers.push(layerObj);
+      new cdk.CfnOutput(this, `${layerDef.id}LayerArn`, {
+        value: layerObj.layerVersionArn,
+        exportName: Util.getResourceNameWithPrefix(`${layerDef.id}-layer-arn`),
+      });
     }
 
     const certificate = certificatemanager.Certificate.fromCertificateArn(

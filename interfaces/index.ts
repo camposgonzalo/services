@@ -22,19 +22,16 @@ export interface HelperBackendStackProps {
   env: EnvConfig;
   name: string;
   infra: HelperInfraStack;
-  general: GeneralStack;
 }
 
 export interface MembershipBackendStackProps {
   env: EnvConfig;
   name: string;
   infra: MembershipInfraStack;
-  general: GeneralStack;
 }
 
 export interface SchoolBackendStackProps {
   env: EnvConfig;
   name: string;
   infra: SchoolInfraStack;
-  general: GeneralStack;
 }
