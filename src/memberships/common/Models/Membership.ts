@@ -1,5 +1,5 @@
 import { DynamoDbClient } from "/opt/nodejs/general/Services/DynamoDbClient";
-import { Uuid } from "/opt/nodejs/general/Utils/Uuid";
+import { Id } from "/opt/nodejs/general/Utils/Id";
 
 export interface MembershipProps {
   id?: string;
@@ -19,7 +19,7 @@ export class Membership {
   static tableName = process.env.MEMBERSHIP_TABLE_NAME;
 
   constructor(props: MembershipProps) {
-    this.id = props.id ? props.id : Uuid.generate();
+    this.id = props.id ? props.id : Id.generate();
     this.name = props.name;
     this.description = props.description;
     this.price = props.price;

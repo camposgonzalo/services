@@ -1,5 +1,4 @@
 import { DynamoDbClient } from "/opt/nodejs/general/Services/DynamoDbClient";
-import { Uuid } from "/opt/nodejs/general/Utils/Uuid";
 
 export class SchoolProps {
   name: string;

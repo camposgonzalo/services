@@ -1,4 +1,3 @@
-// import { CreateMembership } from "../../../common/Schemas/CreateMembership";
 import { Schema } from "/opt/nodejs/Schemas/CreateSchool";
 import { School } from "/opt/nodejs/Models/School";
 

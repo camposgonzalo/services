@@ -15,8 +15,8 @@ phases:
       - npm run build
       - mkdir -p node-modules-layer/nodejs
       - mv node_modules node-modules-layer/nodejs/
-      - mkdir -p common-layer/nodejs
-      - mv dist/* common-layer/nodejs/
+      - mkdir -p common-layer/nodejs/general
+      - mv dist/* common-layer/nodejs/general/
       - cd ..     
       - cd helpers
       - npm i -s
