@@ -78,7 +78,7 @@ export class GeneralStack extends cdk.Stack {
     });
 
     new cdk.CfnOutput(this, "EduqyCertificateArn", {
-      value: servicesApi.restApiRootResourceId,
+      value: certificate.certificateArn,
       exportName: Util.getResourceNameWithPrefix(`certificate-arn`),
     });
 
