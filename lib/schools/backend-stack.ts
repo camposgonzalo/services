@@ -56,15 +56,13 @@ export class SchoolBackendStack extends cdk.Stack {
     const generalLayer = lambda.LayerVersion.fromLayerVersionArn(
       this,
       "GeneralLayerArn",
-      cdk.Fn.importValue(Util.getResourceNameWithPrefix(`General-layer-arn`))
+      Util.getGeneralLayerArn()
     );
 
     const generalModulesLayer = lambda.LayerVersion.fromLayerVersionArn(
       this,
       "GeneralModulesLayerArn",
-      cdk.Fn.importValue(
-        Util.getResourceNameWithPrefix(`GeneralModules-layer-arn`)
-      )
+      Util.getGeneralModulesLayerArn()
     );
 
     this.layers.push(generalLayer);

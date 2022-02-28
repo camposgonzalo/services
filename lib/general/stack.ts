@@ -9,6 +9,7 @@ export class GeneralStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props: GeneralStackProps) {
     super(scope, id, Util.getCdkPropsFromCustomProps(props));
 
+    const domainName = "eduqy.net";
     const layers = [
       {
         id: "General",
@@ -35,10 +36,13 @@ export class GeneralStack extends cdk.Stack {
       });
     }
 
-    const certificate = certificatemanager.Certificate.fromCertificateArn(
+    const certificate = new certificatemanager.Certificate(
       this,
-      "Certificate",
-      Util.getCertificateArn()
+      "EduqyCertificate",
+      {
+        domainName: `*.${domainName}`,
+        validation: certificatemanager.CertificateValidation.fromDns(),
+      }
     );
 
     const servicesApi = new apiGw.RestApi(this, "ServicespApi", {
@@ -62,7 +66,7 @@ export class GeneralStack extends cdk.Stack {
 
     servicesApi.addDomainName("DomainName", {
       certificate: certificate,
-      domainName: "services-api.eduqy.me",
+      domainName: `services-api.${domainName}`,
     });
 
     const healthApi = servicesApi.root.addResource("v1");
@@ -71,6 +75,11 @@ export class GeneralStack extends cdk.Stack {
     new cdk.CfnOutput(this, "ServicesApiId", {
       value: servicesApi.restApiId,
       exportName: Util.getResourceNameWithPrefix(`services-api-id`),
+    });
+
+    new cdk.CfnOutput(this, "EduqyCertificateArn", {
+      value: servicesApi.restApiRootResourceId,
+      exportName: Util.getResourceNameWithPrefix(`certificate-arn`),
     });
 
     new cdk.CfnOutput(this, "ServicesApiRootResourceId", {
